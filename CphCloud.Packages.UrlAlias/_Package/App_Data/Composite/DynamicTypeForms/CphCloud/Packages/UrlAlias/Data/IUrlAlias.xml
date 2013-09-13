@@ -1,0 +1,58 @@
+<cms:formdefinition xmlns:cms="http://www.composite.net/ns/management/bindingforms/1.0" xmlns="http://www.composite.net/ns/management/bindingforms/std.ui.controls.lib/1.0" xmlns:f="http://www.composite.net/ns/management/bindingforms/std.function.lib/1.0" >
+  <cms:bindings>
+    <cms:binding name="Id" type="System.Guid" optional="false" />
+    <cms:binding name="UrlAlias" type="System.String" optional="false" />
+    <cms:binding name="RedirectLocation" type="System.String" optional="false" />
+    <cms:binding name="HttpStatusCode" type="System.Int32" optional="true" />
+    <cms:binding name="Enabled" type="System.Boolean" optional="true" />
+    <cms:binding name="Hostname" type="System.Guid" optional="true" />
+    <cms:binding name="Note" type="System.String" optional="false" />
+  </cms:bindings>
+  <cms:layout>
+    <cms:layout.label>
+      <cms:read source="UrlAlias" />
+    </cms:layout.label>
+    <PlaceHolder>
+      <FieldGroup Label="Redirect Information">
+        <TextBox Label="Url Alias" Help="The path for for the Url Alias, for example: newsletter">
+          <TextBox.Text>
+            <cms:bind source="UrlAlias" />
+          </TextBox.Text>
+        </TextBox>
+        <TextBox Label="Redirect Location" Help="The fully qualified url that the Url Alias should redirect to, for example: http://example.com/en/bea/newsletter?campaign=2 or a relative url to this site, like: about/jobs/available-positions">
+          <TextBox.Text>
+            <cms:bind source="RedirectLocation" />
+          </TextBox.Text>
+        </TextBox>
+      </FieldGroup>
+      <FieldGroup Label="Advanced">
+        <CheckBox Label="Enabled" Help="Unchecking this will disable the redirect">
+          <cms:bind source="Enabled"/>
+        </CheckBox>
+        <KeySelector Label="Hostname" Help="Optionally select a hostname for this Url Alias. This will limit the the redirect to only the hostname you select. Leaving this empty will make the redirect work on any hostname (including localhost)" OptionsKeyField="Key" OptionsLabelField="Label" Required="false">
+          <KeySelector.Selected>
+            <cms:bind source="Hostname" />
+          </KeySelector.Selected>
+          <KeySelector.Options>
+            <f:StaticMethodCall Type="&lt;t n=&quot;Composite.Plugins.Functions.WidgetFunctionProviders.StandardWidgetFunctionProvider.DataReference.NullableDataReferenceSelectorWidgetFunction`1, Composite, Version=4.0.4897.31550, Culture=neutral, PublicKeyToken=null&quot;&gt;&#xD;&#xA;  &lt;t n=&quot;Composite.Data.Types.IHostnameBinding,Composite&quot; /&gt;&#xD;&#xA;&lt;/t&gt;" Method="GetOptions" Parameters="Composite.Data.Types.IHostnameBinding,Composite" />
+          </KeySelector.Options>
+        </KeySelector>
+        <KeySelector Label="Http Status Code" Help="301 means that the redirect is permanent, 302 indicates a temporary redirect. 302 Temporary is the deafult." Required="False" >
+          <KeySelector.Selected>
+            <cms:read source="HttpStatusCode" />
+          </KeySelector.Selected>
+          <KeySelector.Options>
+            <f:function xmlns:f="http://www.composite.net/ns/function/1.0" name="Composite.Utils.String.Split">
+              <f:param name="String" value="301,302" />
+            </f:function>
+          </KeySelector.Options>
+        </KeySelector>
+      </FieldGroup>
+      <FieldGroup Label="Notes">
+        <TextArea Label="Internal Note" Help="Use this fot internal notes, for instance why this alias was created.">
+          <cms:bind source="Note" />
+        </TextArea>
+      </FieldGroup>
+    </PlaceHolder>
+  </cms:layout>
+</cms:formdefinition>

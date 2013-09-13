@@ -1,0 +1,1 @@
+The package project is set to copy content into this directory. Feel free to deploy a Composite Website in this folder to use for pacjage testing.

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ElementStructure xmlns="http://www.composite.net/ns/management/trees/treemarkup/1.0" xmlns:f="http://www.composite.net/ns/function/1.0">
+  <ElementStructure.AutoAttachments>
+    <NamedParent Name="System" Position="Bottom" />
+  </ElementStructure.AutoAttachments>
+  <ElementRoot>
+    <Children>
+      <Element Label="URL Aliases" Id="UrlAliasRoot">
+        <Children>
+          <DataElements Type="CphCloud.Packages.UrlAlias.Data.IUrlAlias, CphCloud.Packages.UrlAlias" Label="${C1:Data:CphCloud.Packages.UrlAlias.Data.IUrlAlias:UrlAlias} -> ${C1:Data:CphCloud.Packages.UrlAlias.Data.IUrlAlias:RedirectLocation}">
+            <Actions>
+              <EditDataAction Label="Edit Url Alias"  />
+              <CustomUrlAction Label="Preview Url Alias" Url="UrlAlias/Preview?p=${C1:Data:CphCloud.Packages.UrlAlias.Data.IUrlAlias:UrlAlias}" />
+              <DeleteDataAction Label="Delete Url Alias" />
+            </Actions>
+          </DataElements>
+        </Children>
+        <Actions>
+          <AddDataAction Label="Add Url Alias" Type="CphCloud.Packages.UrlAlias.Data.IUrlAlias"  />
+        </Actions>
+      </Element>
+    </Children>
+  </ElementRoot>
+</ElementStructure>
