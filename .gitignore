@@ -150,6 +150,6 @@ $RECYCLE.BIN/
 # Mac crap
 .DS_Store
 
-# Short Urls package specific stuff
+# URL Aliases package specific stuff
 Website
 packages/*/
