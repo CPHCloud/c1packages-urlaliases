@@ -3,7 +3,7 @@ using Composite.Data;
 using Composite.Data.DynamicTypes;
 using CphCloud.Packages.UrlAlias.Data;
 
-namespace CphCloud.Packages
+namespace CphCloud.Packages.UrlAlias
 {
     [ApplicationStartup]
     public class UrlAliastartupHandler
@@ -19,10 +19,10 @@ namespace CphCloud.Packages
 
         public static void UrlAliasBeforeWrite(object sender, DataEventArgs eventArgs)
         {
-            var UrlAlias = eventArgs.Data as IUrlAlias;
-            UrlAlias.UrlAlias = "/" + UrlAlias.UrlAlias.Trim(new[] { '/' });
-            UrlAlias.RedirectLocation = UrlAlias.RedirectLocation.StartsWith("http") ? UrlAlias.RedirectLocation
-                : "/" + UrlAlias.RedirectLocation.Trim(new[] { '/' });
+            var urlAlias = eventArgs.Data as IUrlAlias;
+            urlAlias.UrlAlias = "/" + urlAlias.UrlAlias.Trim(new[] { '/' });
+            urlAlias.RedirectLocation = urlAlias.RedirectLocation.StartsWith("http") ? urlAlias.RedirectLocation
+                : "/" + urlAlias.RedirectLocation.Trim(new[] { '/' });
         }
     }
 }
