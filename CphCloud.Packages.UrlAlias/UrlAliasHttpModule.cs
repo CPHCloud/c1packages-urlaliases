@@ -23,7 +23,7 @@ namespace CphCloud.Packages
 
             try
             {
-                if (httpApplication.Request.Url.AbsolutePath.Equals("/UrlAlias/Preview"))
+                if (httpApplication.Request.Url.AbsolutePath == "/UrlAlias/Preview")
                 {
                     var location = HttpUtility.UrlDecode(httpApplication.Request["p"]);
                     httpApplication.Response.Redirect(location);
@@ -34,7 +34,7 @@ namespace CphCloud.Packages
                     {
                         var matchingUrlAlias =
                             conn.Get<IUrlAlias>()
-                                .SingleOrDefault(x => x.UrlAlias.Equals(incomingUrlPath, StringComparison.OrdinalIgnoreCase));
+                                .SingleOrDefault(x => x.UrlAlias.ToLower() == incomingUrlPath.ToLower());
 
                         if (matchingUrlAlias != null 
                             && matchingUrlAlias.Enabled 
