@@ -49,7 +49,7 @@
         </KeySelector>
       </FieldGroup>
       <FieldGroup Label="Notes">
-        <TextArea Label="Internal Note" Help="Use this fot internal notes, for instance why this alias was created.">
+        <TextArea Label="Internal Note" Help="Use this for internal notes, for instance to note why this alias was created.">
           <cms:bind source="Note" />
         </TextArea>
       </FieldGroup>
