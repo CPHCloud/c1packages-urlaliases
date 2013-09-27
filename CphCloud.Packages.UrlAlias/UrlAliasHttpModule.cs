@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Threading;
 using System.Web;
 using Composite.Core.Logging;
 using Composite.Data;
@@ -23,10 +24,16 @@ namespace CphCloud.Packages
 
             try
             {
-                if (httpApplication.Request.Url.AbsolutePath == "/UrlAlias/Preview")
+                if (httpApplication.Request.Url.AbsolutePath.StartsWith("/Composite",
+                                                                        StringComparison.InvariantCultureIgnoreCase))
+                {
+                    // Let's leave Composite alone so the user aren't able to lock themselves out of the console.
+                    return;
+                }
+                else if (httpApplication.Request.Url.AbsolutePath == "/UrlAlias/Preview")
                 {
                     var location = HttpUtility.UrlDecode(httpApplication.Request["p"]);
-                    httpApplication.Response.Redirect(location);
+                    httpApplication.Response.Redirect(location, false);
                 }
                 else
                 {
@@ -36,9 +43,10 @@ namespace CphCloud.Packages
                             conn.Get<IUrlAlias>()
                                 .SingleOrDefault(x => x.UrlAlias.ToLower() == incomingUrlPath.ToLower());
 
-                        if (matchingUrlAlias != null 
-                            && matchingUrlAlias.Enabled 
-                            && (matchingUrlAlias.Hostname == Guid.Empty || conn.Get<IHostnameBinding>().Single(x => x.Id == matchingUrlAlias.Hostname).Hostname == httpApplication.Request.Url.Host))
+                        if (matchingUrlAlias != null
+                            && matchingUrlAlias.Enabled
+                            && (matchingUrlAlias.Hostname == Guid.Empty || conn.Get<IHostnameBinding>()
+                                .Single(x => x.Id == matchingUrlAlias.Hostname).Hostname == httpApplication.Request.Url.Host))
                         {
                             httpApplication.Response.Clear();
                             httpApplication.Response.StatusCode = matchingUrlAlias.HttpStatusCode;
@@ -48,10 +56,13 @@ namespace CphCloud.Packages
                     }
                 }
             }
+            catch (ThreadAbortException ex)
+            {
+                // Do nothing, this is expected
+            }
             catch (Exception ex)
             {
-                LoggingService.LogError("UrlAlias", ex);
-                throw;
+                LoggingService.LogError("Url Aliases", ex);
             }
         }
 
