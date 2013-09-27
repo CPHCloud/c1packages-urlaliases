@@ -50,7 +50,7 @@ namespace CphCloud.Packages.UrlAlias.Data
 
         [StoreFieldType(PhysicalStoreFieldType.String, 1024)]
         [ImmutableFieldId("{52EAA9B9-2D67-4E48-B31B-07010CAFD281}")]
-        [StringSizeValidator(1, 1024)]
+        [StringSizeValidator(0, 1024)]
         string Note { get; set; }
 
     }

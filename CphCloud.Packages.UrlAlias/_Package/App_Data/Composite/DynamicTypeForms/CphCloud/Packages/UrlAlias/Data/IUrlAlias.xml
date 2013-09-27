@@ -6,7 +6,7 @@
     <cms:binding name="HttpStatusCode" type="System.Int32" optional="true" />
     <cms:binding name="Enabled" type="System.Boolean" optional="true" />
     <cms:binding name="Hostname" type="System.Guid" optional="true" />
-    <cms:binding name="Note" type="System.String" optional="false" />
+    <cms:binding name="Note" type="System.String" optional="true" />
   </cms:bindings>
   <cms:layout>
     <cms:layout.label>
