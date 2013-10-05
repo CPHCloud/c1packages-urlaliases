@@ -9,7 +9,7 @@
 		<xsl:copy>
 			<xsl:apply-templates select="@* | node()" />
 			<xsl:if test="count(add[@name='UrlAlias'])=0">
-				<add name="UrlAlias" type="CphCloud.Packages.UrlAliasHttpModule, CphCloud.Packages.UrlAlias" />
+				<add name="UrlAlias" type="CphCloud.Packages.UrlAlias.UrlAliasHttpModule, CphCloud.Packages.UrlAlias" />
 			</xsl:if>
 		</xsl:copy>
 	</xsl:template>

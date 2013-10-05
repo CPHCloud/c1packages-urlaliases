@@ -1,14 +1,13 @@
-﻿using System;
-using System.Text;
-using System.Threading;
-using System.Web;
-using Composite.Core.Logging;
+﻿using Composite.Core.Logging;
 using Composite.Data;
-using System.Linq;
 using Composite.Data.Types;
 using CphCloud.Packages.UrlAlias.Data;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Web;
 
-namespace CphCloud.Packages
+namespace CphCloud.Packages.UrlAlias
 {
     public class UrlAliasHttpModule : IHttpModule
     {
