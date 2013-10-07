@@ -7,6 +7,8 @@
     <cms:binding name="Enabled" type="System.Boolean" optional="true" />
     <cms:binding name="Hostname" type="System.Guid" optional="true" />
     <cms:binding name="Note" type="System.String" optional="true" />
+    <cms:binding name="LastUse" type="System.DateTime" optional="true" />
+    <cms:binding name="UseCount" type="System.Int32" optional="true" />
   </cms:bindings>
   <cms:layout>
     <cms:layout.label>
@@ -52,6 +54,14 @@
         <TextArea Label="Internal Note" Help="Use this for internal notes, for instance to note why this alias was created.">
           <cms:bind source="Note" />
         </TextArea>
+        <TextBox Label="Use Count" Help="Displays the number of times this Url Alias has been in use." Type="ReadOnly">
+          <TextBox.Text>
+            <cms:read source="UseCount"/>
+          </TextBox.Text>
+        </TextBox>
+        <DateTimeSelector ReadOnly="true" Label="Last Used" Help="Displays the date that this Url Alias has last been in use">
+          <cms:read source="LastUse"/>
+        </DateTimeSelector>
       </FieldGroup>
     </PlaceHolder>
   </cms:layout>

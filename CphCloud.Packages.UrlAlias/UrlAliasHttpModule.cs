@@ -47,6 +47,10 @@ namespace CphCloud.Packages.UrlAlias
                             && (matchingUrlAlias.Hostname == Guid.Empty || conn.Get<IHostnameBinding>()
                                 .Single(x => x.Id == matchingUrlAlias.Hostname).Hostname == httpApplication.Request.Url.Host))
                         {
+                            matchingUrlAlias.LastUse = DateTime.Now;
+                            matchingUrlAlias.UseCount++;
+                            conn.Update(matchingUrlAlias);
+
                             httpApplication.Response.Clear();
                             httpApplication.Response.StatusCode = matchingUrlAlias.HttpStatusCode;
                             httpApplication.Response.RedirectLocation = matchingUrlAlias.RedirectLocation;

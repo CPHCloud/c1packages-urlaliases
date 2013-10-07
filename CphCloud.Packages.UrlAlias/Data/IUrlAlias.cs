@@ -53,5 +53,13 @@ namespace CphCloud.Packages.UrlAlias.Data
         [StringSizeValidator(0, 1024)]
         string Note { get; set; }
 
+        [StoreFieldType(PhysicalStoreFieldType.Integer)]
+        [ImmutableFieldId("{D1DCC3DC-AE8F-400D-9147-89EDE8B509BC}")]
+        int UseCount { get; set; }
+
+        [StoreFieldType(PhysicalStoreFieldType.DateTime)]
+        [ImmutableFieldId("{D6885FB2-3827-4777-B37C-58D4254327E2}")]
+        DateTime LastUse { get; set; }
+
     }
 }
