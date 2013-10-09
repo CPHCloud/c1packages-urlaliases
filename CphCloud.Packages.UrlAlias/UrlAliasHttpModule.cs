@@ -19,7 +19,7 @@ namespace CphCloud.Packages.UrlAlias
         static void httpApplication_BeginRequest(object sender, EventArgs e)
         {
             var httpApplication = (HttpApplication)sender;
-            var incomingUrlPath = HttpUtility.UrlDecode(httpApplication.Context.Request.Url.AbsolutePath.TrimEnd(new[] { '/' }));
+            var incomingUrlPath = HttpUtility.UrlDecode(httpApplication.Context.Request.Url.PathAndQuery.TrimEnd(new[] { '/' }));
 
             try
             {
