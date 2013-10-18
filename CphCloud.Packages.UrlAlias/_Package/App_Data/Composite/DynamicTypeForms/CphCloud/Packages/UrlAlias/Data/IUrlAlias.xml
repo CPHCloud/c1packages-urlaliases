@@ -41,7 +41,7 @@
         </KeySelector>
         <KeySelector Label="Http Status Code" Help="301 means that the redirect is permanent, 302 indicates a temporary redirect. 302 Temporary is the deafult." Required="False" >
           <KeySelector.Selected>
-            <cms:read source="HttpStatusCode" />
+            <cms:bind source="HttpStatusCode" />
           </KeySelector.Selected>
           <KeySelector.Options>
             <f:function xmlns:f="http://www.composite.net/ns/function/1.0" name="Composite.Utils.String.Split">
