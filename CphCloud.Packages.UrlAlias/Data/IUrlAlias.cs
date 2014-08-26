@@ -22,9 +22,9 @@ namespace CphCloud.Packages.UrlAlias.Data
         [ImmutableFieldId("{942BDDA5-A5EF-4E31-A5FF-85FBED905F12}")]
         Guid Id { get; set; }
 
-        [StoreFieldType(PhysicalStoreFieldType.String, 64)]
+        [StoreFieldType(PhysicalStoreFieldType.String, 512)]
         [ImmutableFieldId("{C7DEDEAA-686F-42BB-A546-AE8334EB2357}")]
-        [StringSizeValidator(1, 64)]
+        [StringSizeValidator(1, 512)]
         string UrlAlias { get; set; }
 
         [StoreFieldType(PhysicalStoreFieldType.String, 512)]
