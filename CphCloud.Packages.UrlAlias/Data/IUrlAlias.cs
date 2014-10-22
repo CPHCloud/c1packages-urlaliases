@@ -15,6 +15,7 @@ namespace CphCloud.Packages.UrlAlias.Data
     [DataScope(DataScopeIdentifier.PublicName)]
     [PublishProcessControllerType(typeof(GenericPublishProcessController))]
     [ImmutableTypeId("{723530BD-E79E-422A-B841-B3640D744AA9}")]
+    [Caching(CachingType.Full)]
     public interface IUrlAlias : IData
     {
 
