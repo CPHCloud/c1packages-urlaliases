@@ -38,14 +38,13 @@ namespace CphCloud.Packages.UrlAlias
                 {
                     using (var conn = new DataConnection())
                     {
+                        var hostnameId = conn.Get<IHostnameBinding>().Single(x => x.Hostname == httpApplication.Request.Url.Host).Id;
                         var matchingUrlAlias =
                             conn.Get<IUrlAlias>()
-                                .SingleOrDefault(x => x.UrlAlias.ToLower() == incomingUrlPath.ToLower());
+                                .SingleOrDefault(x => x.UrlAlias.ToLower() == incomingUrlPath.ToLower() && (x.Hostname == hostnameId || x.Hostname == Guid.Empty));
 
                         if (matchingUrlAlias != null
-                            && matchingUrlAlias.Enabled
-                            && (matchingUrlAlias.Hostname == Guid.Empty || conn.Get<IHostnameBinding>()
-                                .Single(x => x.Id == matchingUrlAlias.Hostname).Hostname == httpApplication.Request.Url.Host))
+                            && matchingUrlAlias.Enabled)
                         {
                             matchingUrlAlias.LastUse = DateTime.Now;
                             matchingUrlAlias.UseCount++;
