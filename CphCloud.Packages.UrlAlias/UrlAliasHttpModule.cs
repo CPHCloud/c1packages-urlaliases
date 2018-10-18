@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Web;
+using System.Web.Configuration;
 
 namespace CphCloud.Packages.UrlAlias
 {
@@ -46,9 +47,14 @@ namespace CphCloud.Packages.UrlAlias
                         if (matchingUrlAlias != null
                             && matchingUrlAlias.Enabled)
                         {
-                            matchingUrlAlias.LastUse = DateTime.Now;
-                            matchingUrlAlias.UseCount++;
-                            conn.Update(matchingUrlAlias);
+                            bool useCountEnabled = (WebConfigurationManager.AppSettings["UrlAlias::UseCountEnabled"] ?? "true").ToLower() != "false";
+
+                            if (useCountEnabled)
+                            {
+                                matchingUrlAlias.LastUse = DateTime.Now;
+                                matchingUrlAlias.UseCount++;
+                                conn.Update(matchingUrlAlias);
+                            }
 
                             httpApplication.Response.Clear();
                             httpApplication.Response.StatusCode = matchingUrlAlias.HttpStatusCode;
