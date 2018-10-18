@@ -38,7 +38,7 @@ namespace CphCloud.Packages.UrlAlias
                 {
                     using (var conn = new DataConnection())
                     {
-                        var hostnameId = conn.Get<IHostnameBinding>().Single(x => x.Hostname == httpApplication.Request.Url.Host).Id;
+                        var hostnameId = conn.Get<IHostnameBinding>().Where(x => x.Hostname == httpApplication.Request.Url.Host).Select(x => x.Id).FirstOrDefault();
                         var matchingUrlAlias =
                             conn.Get<IUrlAlias>()
                                 .SingleOrDefault(x => x.UrlAlias.ToLower() == incomingUrlPath.ToLower() && (x.Hostname == hostnameId || x.Hostname == Guid.Empty));
