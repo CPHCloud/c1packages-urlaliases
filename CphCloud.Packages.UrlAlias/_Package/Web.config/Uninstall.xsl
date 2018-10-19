@@ -6,4 +6,5 @@
 		</xsl:copy>
 	</xsl:template>
 	<xsl:template match="/configuration/system.webServer/modules/add[@name='UrlAlias']" />
+	<xsl:template match="/configuration/appSettings/add[@key='UrlAlias::UseCountEnabled']" />
 </xsl:stylesheet>

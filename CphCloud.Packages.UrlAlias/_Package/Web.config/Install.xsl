@@ -13,4 +13,12 @@
 			</xsl:if>
 		</xsl:copy>
 	</xsl:template>
+	<xsl:template match="/configuration/appSettings">
+		<xsl:copy>
+			<xsl:apply-templates select="@* | node()" />
+			<xsl:if test="count(add[@name='UrlAlias::UseCountEnabled'])=0">
+				<add key="UrlAlias::UseCountEnabled" value="true" />
+			</xsl:if>
+		</xsl:copy>
+	</xsl:template>
 </xsl:stylesheet>

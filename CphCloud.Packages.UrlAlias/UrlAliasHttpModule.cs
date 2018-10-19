@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Web;
+using System.Web.Configuration;
 
 namespace CphCloud.Packages.UrlAlias
 {
@@ -38,7 +39,7 @@ namespace CphCloud.Packages.UrlAlias
                 {
                     using (var conn = new DataConnection())
                     {
-                        var hostnameId = conn.Get<IHostnameBinding>().Single(x => x.Hostname == httpApplication.Request.Url.Host).Id;
+                        var hostnameId = conn.Get<IHostnameBinding>().Where(x => x.Hostname == httpApplication.Request.Url.Host).Select(x => x.Id).FirstOrDefault();
                         var matchingUrlAlias =
                             conn.Get<IUrlAlias>()
                                 .SingleOrDefault(x => x.UrlAlias.ToLower() == incomingUrlPath.ToLower() && (x.Hostname == hostnameId || x.Hostname == Guid.Empty));
@@ -46,9 +47,14 @@ namespace CphCloud.Packages.UrlAlias
                         if (matchingUrlAlias != null
                             && matchingUrlAlias.Enabled)
                         {
-                            matchingUrlAlias.LastUse = DateTime.Now;
-                            matchingUrlAlias.UseCount++;
-                            conn.Update(matchingUrlAlias);
+                            bool useCountEnabled = (WebConfigurationManager.AppSettings["UrlAlias::UseCountEnabled"] ?? "true").ToLower() != "false";
+
+                            if (useCountEnabled)
+                            {
+                                matchingUrlAlias.LastUse = DateTime.Now;
+                                matchingUrlAlias.UseCount++;
+                                conn.Update(matchingUrlAlias);
+                            }
 
                             httpApplication.Response.Clear();
                             httpApplication.Response.StatusCode = matchingUrlAlias.HttpStatusCode;
